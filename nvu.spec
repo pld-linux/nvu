@@ -1,4 +1,5 @@
 Summary:	Complete Web authoring system for Linux
+Summary(pl):	Kompletny system do tworzenia stron WWW dla Linuksa
 Name:		nvu
 Version:	0.50
 Release:	6.1
@@ -21,9 +22,9 @@ BuildRequires:	tcsh
 BuildRequires:	zip
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-# do not provides mozilla lib
-%define _provides_exceptions libnspr4.so\\|libplc4.so\\|libplds4.so\\|libnss\\|libsmime3\\|libsoftokn\\|libssl3\\|libgtkembedmoz.so\\|libxp.*
-%define _requires_exceptions libnspr4.so\\|libplc4.so\\|libplds4.so\\|libnss\\|libsmime3\\|libsoftokn\\|libssl3\\|libgtkembedmoz.so\\|libxp.*
+# doesn't provide system mozilla libs
+%define		_noautoprov	libnspr4.so libplc4.so libplds4.so libnss libsmime3 libsoftokn libssl3 libgtkembedmoz.so libxp.*
+%define		_noautoreq	libnspr4.so libplc4.so libplds4.so libnss libsmime3 libsoftokn libssl3 libgtkembedmoz.so libxp.*
 
 %description
 Nvu (pronounced N-view, for a "new view") is a complete Web Authoring
@@ -31,15 +32,27 @@ System that combines web file management and easy-to-use WYSIWYG (What
 You See Is What You Get) web page editing. Nvu is designed to be
 extremely easy to use, making it ideal for non-technical computer
 users who want to create an attractive, professional-looking web site
-without needing to know HTML or web coding
+without needing to know HTML or web coding.
+
+%description -l pl
+Nvu (N-view, od "new view) to kompletny system do tworzenia stron WWW
+³±cz±ce zarz±dzanie plikami na WWW i ³atwe w u¿yciu modyfikowanie
+stron w stylu WYSIWYG. Nvu jest zaprojektowany aby byæ bardzo ³atwym w
+u¿yciu, co czyni go idealnym dla nietechnicznych u¿ytkowników
+komputerów chc±cych stworzyæ atrakcyjny, profesjonalnie wygl±daj±cy
+serwis WWW bez potrzeby znajomo¶ci HTML-a czy kodowania stron.
 
 %package devel
 Summary:	Nvu development files
+Summary(pl):	Pliki programistyczne Nvu
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description devel
 Nvu development files.
+
+%description devel -l pl
+Pliki programistyczne Nvu.
 
 %prep
 %setup -q -n mozilla
