@@ -129,18 +129,18 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc LICENSE LEGAL README.txt
 %attr(755,root,root) %{_bindir}/nvu
-%attr(755,root,root) %{_bindir}/nvu-config
-%{_menudir}/%{name}
+%attr(755,root,root) %{_bindir}/Nvu-config
+#%{_menudir}/%{name}
 #%{_miconsdir}/%{name}.png
 #%{_iconsdir}/%{name}.png
 #%{_liconsdir}/%{name}.png
-%dir %{_libdir}/%{name}-0.17+
-%{_libdir}/%{name}-0.17+/*
+%dir %{_libdir}/Nvu-0.60
+%{_libdir}/Nvu-0.60/*
 
 %files devel
 %defattr(644,root,root,755)
 %{_pkgconfigdir}/*.pc
 %{_aclocaldir}/*.m4
-%dir %{_datadir}/idl/%{name}-0.17+
-%{_datadir}/idl/%{name}-0.17+/*.idl
+%dir %{_datadir}/idl/Nvu-0.60
+%{_datadir}/idl/Nvu-0.60/*.idl
 %{_includedir}/*
