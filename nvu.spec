@@ -63,35 +63,35 @@ export MOZ_STANDALONE_COMPOSER=1
 mk_add_options MOZ_STANDALONE_COMPOSER=1
 ac_add_options --enable-optimize
 ac_add_options --disable-debug
-ac_add_options  --disable-svg
-ac_add_options  --without-system-mng
-ac_add_options  --without-system-png
-ac_add_options  --disable-ldap
-ac_add_options  --disable-mailnews
-ac_add_options  --disable-installer
-ac_add_options  --disable-activex
-ac_add_options  --disable-activex-scripting
-ac_add_options  --disable-tests
-ac_add_options  --disable-oji
-ac_add_options  --disable-necko-disk-cache
-ac_add_options  --disable-profilesharing
-ac_add_options  --enable-extensions=wallet,spellcheck,xmlextras,pref,universalchardet,editor/cascades,venkman,inspector
-ac_add_options  --enable-image-decoders=png,gif,jpeg
-ac_add_options  --enable-necko-protocols=http,ftp,file,jar,viewsource,res,data
-ac_add_options  --disable-pedantic
-ac_add_options  --disable-short-wchar
-ac_add_options  --enable-xprint
-ac_add_options  --enable-strip-libs
-ac_add_options  --enable-crypto
-ac_add_options  --disable-mathml
-ac_add_options  --with-system-zlib
-ac_add_options  --enable-toolkit=gtk2
-ac_add_options  --enable-default-toolkit=gtk2
-ac_add_options  --enable-xft
+ac_add_options --disable-svg
+ac_add_options --without-system-mng
+ac_add_options --without-system-png
+ac_add_options --disable-ldap
+ac_add_options --disable-mailnews
+ac_add_options --disable-installer
+ac_add_options --disable-activex
+ac_add_options --disable-activex-scripting
+ac_add_options --disable-tests
+ac_add_options --disable-oji
+ac_add_options --disable-necko-disk-cache
+ac_add_options --disable-profilesharing
+ac_add_options --enable-extensions=wallet,spellcheck,xmlextras,pref,universalchardet,editor/cascades,venkman,inspector
+ac_add_options --enable-image-decoders=png,gif,jpeg
+ac_add_options --enable-necko-protocols=http,ftp,file,jar,viewsource,res,data
+ac_add_options --disable-pedantic
+ac_add_options --disable-short-wchar
+ac_add_options --enable-xprint
+ac_add_options --enable-strip-libs
+ac_add_options --enable-crypto
+ac_add_options --disable-mathml
+ac_add_options --with-system-zlib
+ac_add_options --enable-toolkit=gtk2
+ac_add_options --enable-default-toolkit=gtk2
+ac_add_options --enable-xft
 
-ac_add_options  --prefix=%{_prefix}
-ac_add_options  --libdir=%{_libdir}
-ac_add_options	--enable-optimize="%{rpmcflags}"
+ac_add_options --prefix=%{_prefix}
+ac_add_options --libdir=%{_libdir}
+ac_add_options --enable-optimize="%{rpmcflags}"
 EOF
 
 %{__make} -j1 -f client.mk build_all
@@ -115,12 +115,12 @@ rm -rf $RPM_BUILD_ROOT
 #multiple_files="false"
 #EOF
 
-#install -m 755 -d $RPM_BUILD_ROOT%{_miconsdir}
-#install -m 755 -d $RPM_BUILD_ROOT%{_iconsdir}
-#install -m 755 -d $RPM_BUILD_ROOT%{_liconsdir}
-#install -m 644   $RPM_BUILD_ROOT%{_libdir}/%{name}-0.17+/icons/mozicon16.xpm  $RPM_BUILD_ROOT%{_miconsdir}/%{name}.png
-#convert -resize 32x32  $RPM_BUILD_ROOT%{_libdir}/%{name}-0.17+/icons/mozicon50.xpm $RPM_BUILD_ROOT%{_iconsdir}/%{name}.png
-#convert -resize 48x48  $RPM_BUILD_ROOT%{_libdir}/%{name}-0.17+/icons/mozicon50.xpm $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
+#install -d $RPM_BUILD_ROOT%{_miconsdir}
+#install -d $RPM_BUILD_ROOT%{_iconsdir}
+#install -d $RPM_BUILD_ROOT%{_liconsdir}
+#install $RPM_BUILD_ROOT%{_libdir}/%{name}-0.17+/icons/mozicon16.xpm $RPM_BUILD_ROOT%{_miconsdir}/%{name}.png
+#convert -resize 32x32 $RPM_BUILD_ROOT%{_libdir}/%{name}-0.17+/icons/mozicon50.xpm $RPM_BUILD_ROOT%{_iconsdir}/%{name}.png
+#convert -resize 48x48 $RPM_BUILD_ROOT%{_libdir}/%{name}-0.17+/icons/mozicon50.xpm $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
 
 %clean
 rm -rf $RPM_BUILD_ROOT
