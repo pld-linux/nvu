@@ -94,7 +94,7 @@ ac_add_options  --libdir=%{_libdir}
 ac_add_options	--enable-optimize="$RPM_OPT_FLAGS"
 EOF
 
-%{__make} -f client.mk build_all
+%{__make} -j1 -f client.mk build_all
 
 %install
 rm -rf $RPM_BUILD_ROOT
