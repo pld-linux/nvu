@@ -91,7 +91,7 @@ ac_add_options  --enable-xft
 
 ac_add_options  --prefix=%{_prefix}
 ac_add_options  --libdir=%{_libdir}
-ac_add_options	--enable-optimize="$RPM_OPT_FLAGS"
+ac_add_options	--enable-optimize="%{rpmcflags}"
 EOF
 
 %{__make} -j1 -f client.mk build_all
