@@ -1,16 +1,12 @@
 Summary:	Complete Web authoring system for Linux
 Summary(pl):	Kompletny system do tworzenia stron WWW dla Linuksa
 Name:		nvu
-Version:	0.50
-Release:	6.1
+Version:	0.60
+Release:	1
 License:	MPL/LGPL/GPL
 Group:		Applications
-# http://cvs.nvu.com/download/nvu-0.50-sources.tar.bz2
-Source0:	%{name}-%{version}.tar.bz2
-# Source0-md5:	cd2f677aebc3a7e90df4bdb848774788
-Patch0:		nvu-freetype2.patch.bz2
-Patch1:		nvu-mozilla-1.1-system-myspell-dicts.patch.bz2
-Patch2:		nvu-mozilla-1.7-spellcheck-full-langname.patch.bz2
+Source0:	http://cvs.nvu.com/download/%{name}-%{version}-sources.tar.bz2
+# Source0-md5:	d43bd909379606cd35f07109fbdc622f
 URL:		http://www.nvu.com/
 BuildRequires:	gnome-vfs2-devel
 BuildRequires:	gtk+2-devel >= 1:2.2.0
@@ -56,9 +52,6 @@ Pliki programistyczne Nvu.
 
 %prep
 %setup -q -n mozilla
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
 # let jars get compressed
 %{__perl} -pi -e 's|\-0|\-9|g' config/make-jars.pl
 
