@@ -1,3 +1,7 @@
+#
+# TODO:
+# - build with system nspr, jpeg, png and maybe more...
+#
 Summary:	Complete Web authoring system for Linux
 Summary(pl):	Kompletny system do tworzenia stron WWW dla Linuksa
 Name:		nvu
