@@ -2,20 +2,28 @@ Summary:	Complete Web authoring system for Linux
 Summary(pl):	Kompletny system do tworzenia stron WWW dla Linuksa
 Name:		nvu
 Version:	0.70
-Release:	0.1
+Release:	0.2
 License:	MPL/LGPL/GPL
 Group:		Applications
 Source0:	http://cvs.nvu.com/download/%{name}-%{version}-sources.tar.bz2
 # Source0-md5:	3811c7fb9d3bffd54ff0f03c9559c635
+Patch0:		%{name}-domainfix.patch
 URL:		http://www.nvu.com/
+BuildRequires:	GConf2-devel
+BuildRequires:	freetype-devel >= 2.1.3
+BuildRequires:	freetype-devel < 1:2.1.8
+BuildConflicts:	freetype-devel = 2.1.8
 BuildRequires:	gnome-vfs2-devel
 BuildRequires:	gtk+2-devel >= 1:2.2.0
+BuildRequires:	libgnome-devel
 BuildRequires:	libIDL-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	perl-base
-BuildRequires:	tcsh
 BuildRequires:	zip
+Requires:	freetype >= 2.1.3
+Requires:	freetype < 1:2.1.8
+Conflicts:	freetype = 2.1.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # doesn't provide system mozilla libs
@@ -52,6 +60,8 @@ Pliki programistyczne Nvu.
 
 %prep
 %setup -q -n mozilla
+%patch0 -p0
+
 # let jars get compressed
 %{__perl} -pi -e 's|\-0|\-9|g' config/make-jars.pl
 
@@ -61,7 +71,6 @@ export MOZILLA_OFFICIAL=1
 export BUILD_OFFICIAL=1
 export MOZ_STANDALONE_COMPOSER=1
 mk_add_options MOZ_STANDALONE_COMPOSER=1
-ac_add_options --enable-optimize
 ac_add_options --disable-debug
 ac_add_options --disable-svg
 ac_add_options --without-system-mng
@@ -74,8 +83,9 @@ ac_add_options --disable-activex-scripting
 ac_add_options --disable-tests
 ac_add_options --disable-oji
 ac_add_options --disable-necko-disk-cache
+ac_add_options --enable-single-profile
 ac_add_options --disable-profilesharing
-ac_add_options --enable-extensions=wallet,spellcheck,xmlextras,pref,universalchardet,editor/cascades,venkman,inspector
+ac_add_options --enable-extensions=wallet,spellcheck,xmlextras,pref,universalchardet,editor/cascades,inspector,irc,p3p,gnomevfs,help,cookie,cview,finger,webservices
 ac_add_options --enable-image-decoders=png,gif,jpeg
 ac_add_options --enable-necko-protocols=http,ftp,file,jar,viewsource,res,data
 ac_add_options --disable-pedantic
@@ -85,9 +95,13 @@ ac_add_options --enable-strip-libs
 ac_add_options --enable-crypto
 ac_add_options --disable-mathml
 ac_add_options --with-system-zlib
+ac_add_options --enable-freetype2
 ac_add_options --enable-toolkit=gtk2
 ac_add_options --enable-default-toolkit=gtk2
 ac_add_options --enable-xft
+ac_add_options --disable-postscript
+ac_add_options --enable-calendar
+ac_add_options --enable-xinerama
 
 ac_add_options --prefix=%{_prefix}
 ac_add_options --libdir=%{_libdir}
@@ -100,72 +114,48 @@ rm -f config.cache
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%makeinstall
-
-## menu entry
-#mkdir -p %buildroot/%_menudir
-#cat > %buildroot/%_menudir/%name << EOF
-#?package(%name):\
-#command="%_bindir/%name" \
-#needs="x11" \
-#icon="%name.png" \
-#section="Internet/Web Editors" \
-#title="Nvu" \
-#longtitle="%Summary" \
-#mimetypes="" accept_url="true" \
-#multiple_files="false"
-#EOF
-
-#install -d $RPM_BUILD_ROOT%{_miconsdir}
-#install -d $RPM_BUILD_ROOT%{_iconsdir}
-#install -d $RPM_BUILD_ROOT%{_liconsdir}
-#install $RPM_BUILD_ROOT%{_libdir}/%{name}-0.17+/icons/mozicon16.xpm $RPM_BUILD_ROOT%{_miconsdir}/%{name}.png
-#convert -resize 32x32 $RPM_BUILD_ROOT%{_libdir}/%{name}-0.17+/icons/mozicon50.xpm $RPM_BUILD_ROOT%{_iconsdir}/%{name}.png
-#convert -resize 48x48 $RPM_BUILD_ROOT%{_libdir}/%{name}-0.17+/icons/mozicon50.xpm $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc LICENSE LEGAL README.txt
+%doc LEGAL LICENSE README.txt
 %attr(755,root,root) %{_bindir}/nvu
-%attr(755,root,root) %{_bindir}/Nvu-config
-#%{_menudir}/%{name}
-#%{_miconsdir}/%{name}.png
-#%{_iconsdir}/%{name}.png
-#%{_liconsdir}/%{name}.png
-%dir %{_libdir}/Nvu-0.60
-%attr(755,root,root) %{_libdir}/Nvu-0.60/*.so
-%attr(755,root,root) %{_libdir}/Nvu-0.60/TestGtkEmbed
-%attr(755,root,root) %{_libdir}/Nvu-0.60/mozilla-xremote-client
-%attr(755,root,root) %{_libdir}/Nvu-0.60/nvu-bin
-%attr(755,root,root) %{_libdir}/Nvu-0.60/regchrome
-%attr(755,root,root) %{_libdir}/Nvu-0.60/regxpcom
-%attr(755,root,root) %{_libdir}/Nvu-0.60/run-mozilla.sh
-%attr(755,root,root) %{_libdir}/Nvu-0.60/xpcshell
-%attr(755,root,root) %{_libdir}/Nvu-0.60/xpicleanup
-%attr(755,root,root) %{_libdir}/Nvu-0.60/xpidl
-%attr(755,root,root) %{_libdir}/Nvu-0.60/xpt_dump
-%attr(755,root,root) %{_libdir}/Nvu-0.60/xpt_link
-%dir %{_libdir}/Nvu-0.60/plugins
-%attr(755,root,root) %{_libdir}/Nvu-0.60/plugins/libnullplugin.so
-%dir %{_libdir}/Nvu-0.60/components
-%attr(755,root,root) %{_libdir}/Nvu-0.60/components/*.so
-%{_libdir}/Nvu-0.60/components/*.js
-%{_libdir}/Nvu-0.60/components/*.xpt
-%{_libdir}/Nvu-0.60/components/myspell
-%{_libdir}/Nvu-0.60/libsoftokn3.chk
-%{_libdir}/Nvu-0.60/chrome
-%{_libdir}/Nvu-0.60/defaults
-%{_libdir}/Nvu-0.60/greprefs
-%{_libdir}/Nvu-0.60/icons
-%{_libdir}/Nvu-0.60/res
+%attr(755,root,root) %{_bindir}/nvu-config
+%dir %{_libdir}/nvu-0.70
+%attr(755,root,root) %{_libdir}/nvu-0.70/*.so
+%attr(755,root,root) %{_libdir}/nvu-0.70/TestGtkEmbed
+%attr(755,root,root) %{_libdir}/nvu-0.70/mozilla-xremote-client
+%attr(755,root,root) %{_libdir}/nvu-0.70/nvu-bin
+%attr(755,root,root) %{_libdir}/nvu-0.70/regchrome
+%attr(755,root,root) %{_libdir}/nvu-0.70/regxpcom
+%attr(755,root,root) %{_libdir}/nvu-0.70/run-mozilla.sh
+%attr(755,root,root) %{_libdir}/nvu-0.70/xpcshell
+%attr(755,root,root) %{_libdir}/nvu-0.70/xpicleanup
+%attr(755,root,root) %{_libdir}/nvu-0.70/xpidl
+%attr(755,root,root) %{_libdir}/nvu-0.70/xpt_dump
+%attr(755,root,root) %{_libdir}/nvu-0.70/xpt_link
+%dir %{_libdir}/nvu-0.70/plugins
+%attr(755,root,root) %{_libdir}/nvu-0.70/plugins/libnullplugin.so
+%dir %{_libdir}/nvu-0.70/components
+%attr(755,root,root) %{_libdir}/nvu-0.70/components/*.so
+%{_libdir}/nvu-0.70/components/*.js
+%{_libdir}/nvu-0.70/components/*.xpt
+%{_libdir}/nvu-0.70/components/myspell
+%{_libdir}/nvu-0.70/libsoftokn3.chk
+%{_libdir}/nvu-0.70/chrome
+%{_libdir}/nvu-0.70/defaults
+%{_libdir}/nvu-0.70/greprefs
+%{_libdir}/nvu-0.70/icons
+%{_libdir}/nvu-0.70/res
 
 %files devel
 %defattr(644,root,root,755)
 %{_pkgconfigdir}/*.pc
 %{_aclocaldir}/*.m4
-%dir %{_datadir}/idl/Nvu-0.60
-%{_datadir}/idl/Nvu-0.60/*.idl
+%dir %{_datadir}/idl/nvu-0.70
+%{_datadir}/idl/nvu-0.70/*.idl
 %{_includedir}/*
