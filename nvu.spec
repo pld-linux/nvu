@@ -94,6 +94,7 @@ ac_add_options --libdir=%{_libdir}
 ac_add_options --enable-optimize="%{rpmcflags}"
 EOF
 
+rm -f config.cache
 %{__make} -j1 -f client.mk build_all
 
 %install
@@ -123,7 +124,7 @@ rm -rf $RPM_BUILD_ROOT
 #convert -resize 48x48 $RPM_BUILD_ROOT%{_libdir}/%{name}-0.17+/icons/mozicon50.xpm $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+#rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
@@ -135,7 +136,31 @@ rm -rf $RPM_BUILD_ROOT
 #%{_iconsdir}/%{name}.png
 #%{_liconsdir}/%{name}.png
 %dir %{_libdir}/Nvu-0.60
-%{_libdir}/Nvu-0.60/*
+%attr(755,root,root) %{_libdir}/Nvu-0.60/*.so
+%attr(755,root,root) %{_libdir}/Nvu-0.60/TestGtkEmbed
+%attr(755,root,root) %{_libdir}/Nvu-0.60/mozilla-xremote-client
+%attr(755,root,root) %{_libdir}/Nvu-0.60/nvu-bin
+%attr(755,root,root) %{_libdir}/Nvu-0.60/regchrome
+%attr(755,root,root) %{_libdir}/Nvu-0.60/regxpcom
+%attr(755,root,root) %{_libdir}/Nvu-0.60/run-mozilla.sh
+%attr(755,root,root) %{_libdir}/Nvu-0.60/xpcshell
+%attr(755,root,root) %{_libdir}/Nvu-0.60/xpicleanup
+%attr(755,root,root) %{_libdir}/Nvu-0.60/xpidl
+%attr(755,root,root) %{_libdir}/Nvu-0.60/xpt_dump
+%attr(755,root,root) %{_libdir}/Nvu-0.60/xpt_link
+%dir %{_libdir}/Nvu-0.60/plugins
+%attr(755,root,root) %{_libdir}/Nvu-0.60/plugins/libnullplugin.so
+%dir %{_libdir}/Nvu-0.60/components
+%attr(755,root,root) %{_libdir}/Nvu-0.60/components/*.so
+%attr(755,root,root) %{_libdir}/Nvu-0.60/components/*.js
+%{_libdir}/Nvu-0.60/components/*.xpt
+%{_libdir}/Nvu-0.60/components/myspell
+%{_libdir}/Nvu-0.60/libsoftokn3.chk
+%{_libdir}/Nvu-0.60/chrome
+%{_libdir}/Nvu-0.60/defaults
+%{_libdir}/Nvu-0.60/greprefs
+%{_libdir}/Nvu-0.60/icons
+%{_libdir}/Nvu-0.60/res
 
 %files devel
 %defattr(644,root,root,755)
