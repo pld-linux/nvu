@@ -23,7 +23,7 @@ BuildRequires:	libgnome-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
-BuildRequires:	perl-base
+BuildRequires:	perl-modules
 BuildRequires:	pkgconfig
 BuildRequires:	zip
 Requires:	freetype >= 2.1.3
@@ -72,11 +72,18 @@ Pliki programistyczne Nvu.
 
 %build
 cat << EOF > .mozconfig
+export MOZ_PHOENIX=1
 export MOZILLA_OFFICIAL=1
 export BUILD_OFFICIAL=1
 export MOZ_STANDALONE_COMPOSER=1
 mk_add_options MOZ_STANDALONE_COMPOSER=1
+%if %{?debug:1}0
+ac_add_options --enable-debug
+ac_add_options --enable-debug-modules
+%else
 ac_add_options --disable-debug
+ac_add_options --disable-debug-modules
+%endif
 ac_add_options --disable-svg
 ac_add_options --without-system-mng
 ac_add_options --without-system-png
