@@ -1,12 +1,12 @@
 Summary:	Complete Web authoring system for Linux
 Summary(pl):	Kompletny system do tworzenia stron WWW dla Linuksa
 Name:		nvu
-Version:	0.60
-Release:	1
+Version:	0.70
+Release:	0.1
 License:	MPL/LGPL/GPL
 Group:		Applications
 Source0:	http://cvs.nvu.com/download/%{name}-%{version}-sources.tar.bz2
-# Source0-md5:	d43bd909379606cd35f07109fbdc622f
+# Source0-md5:	3811c7fb9d3bffd54ff0f03c9559c635
 URL:		http://www.nvu.com/
 BuildRequires:	gnome-vfs2-devel
 BuildRequires:	gtk+2-devel >= 1:2.2.0
