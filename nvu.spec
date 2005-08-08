@@ -5,12 +5,12 @@
 Summary:	Complete Web authoring system for Linux
 Summary(pl):	Kompletny system do tworzenia stron WWW dla Linuksa
 Name:		nvu
-Version:	0.90
-Release:	0.1
+Version:	1.0
+Release:	1
 License:	MPL/LGPL/GPL
 Group:		Applications
 Source0:	http://cvs.nvu.com/download/%{name}-%{version}-sources.tar.bz2
-# Source0-md5:	d88dd587250afdc3e84e864e8e2b3cc2
+# Source0-md5:	ae0f7c85e230ce8a90dc438b53be06e6
 Patch0:		%{name}-domainfix.patch
 URL:		http://www.nvu.com/
 BuildRequires:	GConf2-devel
@@ -107,7 +107,6 @@ ac_add_options --enable-strip-libs
 ac_add_options --enable-crypto
 ac_add_options --disable-mathml
 ac_add_options --with-system-zlib
-ac_add_options --enable-freetype2
 ac_add_options --enable-toolkit=gtk2
 ac_add_options --enable-default-toolkit=gtk2
 ac_add_options --enable-xft
@@ -137,37 +136,37 @@ rm -rf $RPM_BUILD_ROOT
 %doc LEGAL LICENSE README.txt
 %attr(755,root,root) %{_bindir}/nvu
 %attr(755,root,root) %{_bindir}/nvu-config
-%dir %{_libdir}/nvu-0.90
-%attr(755,root,root) %{_libdir}/nvu-0.90/*.so
-%attr(755,root,root) %{_libdir}/nvu-0.90/TestGtkEmbed
-%attr(755,root,root) %{_libdir}/nvu-0.90/mozilla-xremote-client
-%attr(755,root,root) %{_libdir}/nvu-0.90/nvu-bin
-%attr(755,root,root) %{_libdir}/nvu-0.90/regchrome
-%attr(755,root,root) %{_libdir}/nvu-0.90/regxpcom
-%attr(755,root,root) %{_libdir}/nvu-0.90/run-mozilla.sh
-%attr(755,root,root) %{_libdir}/nvu-0.90/xpcshell
-%attr(755,root,root) %{_libdir}/nvu-0.90/xpicleanup
-%attr(755,root,root) %{_libdir}/nvu-0.90/xpidl
-%attr(755,root,root) %{_libdir}/nvu-0.90/xpt_dump
-%attr(755,root,root) %{_libdir}/nvu-0.90/xpt_link
-%dir %{_libdir}/nvu-0.90/plugins
-%attr(755,root,root) %{_libdir}/nvu-0.90/plugins/libnullplugin.so
-%dir %{_libdir}/nvu-0.90/components
-%attr(755,root,root) %{_libdir}/nvu-0.90/components/*.so
-%{_libdir}/nvu-0.90/components/*.js
-%{_libdir}/nvu-0.90/components/*.xpt
-%{_libdir}/nvu-0.90/components/myspell
-%{_libdir}/nvu-0.90/libsoftokn3.chk
-%{_libdir}/nvu-0.90/chrome
-%{_libdir}/nvu-0.90/defaults
-%{_libdir}/nvu-0.90/greprefs
-%{_libdir}/nvu-0.90/icons
-%{_libdir}/nvu-0.90/res
+%dir %{_libdir}/nvu-1.0
+%attr(755,root,root) %{_libdir}/nvu-1.0/*.so
+%attr(755,root,root) %{_libdir}/nvu-1.0/TestGtkEmbed
+%attr(755,root,root) %{_libdir}/nvu-1.0/mozilla-xremote-client
+%attr(755,root,root) %{_libdir}/nvu-1.0/nvu-bin
+%attr(755,root,root) %{_libdir}/nvu-1.0/regchrome
+%attr(755,root,root) %{_libdir}/nvu-1.0/regxpcom
+%attr(755,root,root) %{_libdir}/nvu-1.0/run-mozilla.sh
+%attr(755,root,root) %{_libdir}/nvu-1.0/xpcshell
+%attr(755,root,root) %{_libdir}/nvu-1.0/xpicleanup
+%attr(755,root,root) %{_libdir}/nvu-1.0/xpidl
+%attr(755,root,root) %{_libdir}/nvu-1.0/xpt_dump
+%attr(755,root,root) %{_libdir}/nvu-1.0/xpt_link
+%dir %{_libdir}/nvu-1.0/plugins
+%attr(755,root,root) %{_libdir}/nvu-1.0/plugins/libnullplugin.so
+%dir %{_libdir}/nvu-1.0/components
+%attr(755,root,root) %{_libdir}/nvu-1.0/components/*.so
+%{_libdir}/nvu-1.0/components/*.js
+%{_libdir}/nvu-1.0/components/*.xpt
+%{_libdir}/nvu-1.0/components/myspell
+%{_libdir}/nvu-1.0/libsoftokn3.chk
+%{_libdir}/nvu-1.0/chrome
+%{_libdir}/nvu-1.0/defaults
+%{_libdir}/nvu-1.0/greprefs
+%{_libdir}/nvu-1.0/icons
+%{_libdir}/nvu-1.0/res
 
 %files devel
 %defattr(644,root,root,755)
 %{_pkgconfigdir}/*.pc
 %{_aclocaldir}/*.m4
-%dir %{_datadir}/idl/nvu-0.90
-%{_datadir}/idl/nvu-0.90/*.idl
+%dir %{_datadir}/idl/nvu-1.0
+%{_datadir}/idl/nvu-1.0/*.idl
 %{_includedir}/*
