@@ -25,6 +25,7 @@ BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	perl-modules
 BuildRequires:	pkgconfig
+BuildRequires:	tar >= 1:1.15.1
 BuildRequires:	zip
 Requires:	freetype >= 2.1.3
 Requires:	freetype < 1:2.1.8
@@ -64,7 +65,8 @@ Nvu development files.
 Pliki programistyczne Nvu.
 
 %prep
-%setup -q -n mozilla
+%setup -q -c -T
+tar jxf %{SOURCE0} --strip-components=1
 %patch0 -p0
 
 # let jars get compressed
