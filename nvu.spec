@@ -25,7 +25,6 @@ BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	perl-modules
 BuildRequires:	pkgconfig
-BuildRequires:	tar >= 1:1.15.1
 BuildRequires:	zip
 Requires:	freetype >= 2.1.3
 Requires:	freetype < 1:2.1.8
@@ -66,13 +65,15 @@ Pliki programistyczne Nvu.
 
 %prep
 %setup -q -c -T
-tar jxf %{SOURCE0} --strip-components=1
+tar jxf %{SOURCE0}
+cd mozilla
 %patch0 -p0
 
 # let jars get compressed
 %{__perl} -pi -e 's|\-0|\-9|g' config/make-jars.pl
 
 %build
+cd mozilla
 cat << EOF > .mozconfig
 export MOZ_PHOENIX=1
 export MOZILLA_OFFICIAL=1
