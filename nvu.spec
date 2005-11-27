@@ -6,16 +6,16 @@ Summary:	Complete Web authoring system for Linux
 Summary(pl):	Kompletny system do tworzenia stron WWW dla Linuksa
 Name:		nvu
 Version:	1.0
-Release:	1
+Release:	0.1
 License:	MPL/LGPL/GPL
 Group:		Applications
 Source0:	http://cvs.nvu.com/download/%{name}-%{version}-sources.tar.bz2
 # Source0-md5:	ae0f7c85e230ce8a90dc438b53be06e6
 Patch0:		%{name}-domainfix.patch
+Patch1:		%{name}-freetype2.patch
 URL:		http://www.nvu.com/
 BuildRequires:	GConf2-devel
 BuildRequires:	freetype-devel >= 2.1.3
-BuildRequires:	freetype-devel < 1:2.1.8
 BuildConflicts:	freetype-devel = 2.1.8
 BuildRequires:	gnome-vfs2-devel
 BuildRequires:	gtk+2-devel >= 1:2.2.0
@@ -68,6 +68,7 @@ Pliki programistyczne Nvu.
 tar jxf %{SOURCE0}
 cd mozilla
 %patch0 -p0
+%patch1 -p1
 
 # let jars get compressed
 %{__perl} -pi -e 's|\-0|\-9|g' config/make-jars.pl
@@ -116,6 +117,7 @@ ac_add_options --enable-xft
 ac_add_options --disable-postscript
 ac_add_options --enable-calendar
 ac_add_options --enable-xinerama
+ac_add_options --enable-freetype2
 
 ac_add_options --prefix=%{_prefix}
 ac_add_options --libdir=%{_libdir}
