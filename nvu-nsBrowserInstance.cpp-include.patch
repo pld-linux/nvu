@@ -1,0 +1,11 @@
+--- mozilla/xpfe/browser/src/nsBrowserInstance.cpp.old	2006-01-25 23:11:39.000000000 +0100
++++ mozilla/xpfe/browser/src/nsBrowserInstance.cpp	2006-01-25 23:11:46.000000000 +0100
+@@ -104,7 +104,7 @@
+ #include "nsIProxyObjectManager.h" 
+ 
+ #ifdef MOZ_PHOENIX
+-#include "nsToolkitCompsCID.h"
++#include "../../toolkit/components/build/nsToolkitCompsCID.h"
+ #endif
+ 
+ // If DEBUG, NS_BUILD_REFCNT_LOGGING, MOZ_PERF_METRICS, or MOZ_JPROF is
