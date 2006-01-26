@@ -13,6 +13,8 @@ Source0:	http://cvs.nvu.com/download/%{name}-%{version}-sources.tar.bz2
 # Source0-md5:	ae0f7c85e230ce8a90dc438b53be06e6
 Patch0:		%{name}-domainfix.patch
 Patch1:		%{name}-freetype2.patch
+Patch2:		%{name}-nsBrowserInstance.cpp-include.patch
+# Patch agains export MOZ_PHOENIX=1
 URL:		http://www.nvu.com/
 BuildRequires:	GConf2-devel
 BuildRequires:	freetype-devel >= 2.1.3
@@ -76,7 +78,6 @@ cd mozilla
 %build
 cd mozilla
 cat << EOF > .mozconfig
-export MOZ_PHOENIX=1
 export MOZILLA_OFFICIAL=1
 export BUILD_OFFICIAL=1
 export MOZ_STANDALONE_COMPOSER=1
@@ -89,8 +90,9 @@ ac_add_options --disable-debug
 ac_add_options --disable-debug-modules
 %endif
 ac_add_options --disable-svg
-ac_add_options --without-system-mng
-ac_add_options --without-system-png
+ac_add_options --with-system-mng
+ac_add_options --with-system-png
+ac_add_options --with-system-jpeg
 ac_add_options --disable-ldap
 ac_add_options --disable-mailnews
 ac_add_options --disable-installer
@@ -101,7 +103,7 @@ ac_add_options --disable-oji
 ac_add_options --disable-necko-disk-cache
 ac_add_options --enable-single-profile
 ac_add_options --disable-profilesharing
-ac_add_options --enable-extensions=wallet,spellcheck,xmlextras,pref,universalchardet,editor/cascades,inspector,irc,p3p,gnomevfs,help,cookie,cview,finger,webservices
+ac_add_options --enable-extensions=wallet,spellcheck,xmlextras,pref,universalchardet,editor/cascades,inspector,gnomevfs
 ac_add_options --enable-image-decoders=png,gif,jpeg
 ac_add_options --enable-necko-protocols=http,ftp,file,jar,viewsource,res,data
 ac_add_options --disable-pedantic
@@ -114,11 +116,6 @@ ac_add_options --with-system-zlib
 ac_add_options --enable-toolkit=gtk2
 ac_add_options --enable-default-toolkit=gtk2
 ac_add_options --enable-xft
-ac_add_options --disable-postscript
-ac_add_options --enable-calendar
-ac_add_options --enable-xinerama
-ac_add_options --enable-freetype2
-
 ac_add_options --prefix=%{_prefix}
 ac_add_options --libdir=%{_libdir}
 ac_add_options --enable-optimize="%{rpmcflags}"
