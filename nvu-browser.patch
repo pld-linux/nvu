@@ -1,0 +1,17 @@
+--- mozilla/composer/app/profile/all.js.launcher	2005-09-08 17:23:49.000000000 +0200
++++ mozilla/composer/app/profile/all.js	2005-09-08 17:24:24.000000000 +0200
+@@ -943,10 +943,10 @@
+ pref("tipoftheday.openAtStartup",                 true);
+ pref("pinger.pinged",                             " ");
+ 
+-pref("network.protocol-handler.app.http", "/usr/lib/mozilla/mozilla-ext");
+-pref("network.protocol-handler.app.https", "/usr/lib/mozilla/mozilla-ext");
+-pref("network.protocol-handler.app.ftp", "/usr/lib/mozilla/mozilla-ext");
+-pref("network.protocol-handler.app.file", "/usr/lib/mozilla/mozilla-ext");
++pref("network.protocol-handler.app.http", "/usr/bin/www-browser");
++pref("network.protocol-handler.app.https", "/usr/bin/www-browser");
++pref("network.protocol-handler.app.ftp", "/usr/bin/www-browser");
++pref("network.protocol-handler.app.file", "/usr/bin/www-browser");
+ 
+ pref("spellchecker.enablerealtimespell", false);
+ pref("spellchecker.realtimespell.warning_color", "orange");

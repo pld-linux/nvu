@@ -1,0 +1,11 @@
+--- mozilla/composer/app/profile/all.js.mandriva	2005-09-08 17:01:18.000000000 +0200
++++ mozilla/composer/app/profile/all.js	2005-09-08 17:01:44.000000000 +0200
+@@ -126,7 +126,7 @@
+ pref("keyword.enabled", false);
+ pref("general.useragent.locale", "chrome://navigator/locale/navigator.properties");
+ pref("general.useragent.contentlocale", "chrome://navigator-region/locale/region.properties");
+-pref("general.useragent.vendor", "Linspire Inc.");
++pref("general.useragent.vendor", "PLD Linux");
+ pref("general.useragent.vendorSub", 
+ #expand __APP_VERSION__
+ );

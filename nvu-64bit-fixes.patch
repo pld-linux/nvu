@@ -1,0 +1,71 @@
+--- mozilla/gfx/src/freetype/nsFreeType.cpp.64bit-fixes	2005-09-07 16:54:44.000000000 +0200
++++ mozilla/gfx/src/freetype/nsFreeType.cpp	2005-09-07 16:58:34.000000000 +0200
+@@ -96,7 +96,7 @@ static NS_DEFINE_CID(kCharSetManagerCID,
+ // Define the FreeType2 functions we resolve at run time.
+ // see the comment near nsFreeType2::DoneFace() for more info
+ //
+-#define NS_FT2_OFFSET(f) (int)&((nsFreeType2*)0)->f
++#define NS_FT2_OFFSET(f) (NS_PTR_TO_INT32(&((nsFreeType2*)0)->f))
+ FtFuncList nsFreeType2::FtFuncs [] = {
+   {"FT_Done_Face",            NS_FT2_OFFSET(nsFT_Done_Face),            PR_TRUE},
+   {"FT_Done_FreeType",        NS_FT2_OFFSET(nsFT_Done_FreeType),        PR_TRUE},
+--- mozilla/netwerk/protocol/http/src/nsHttpConnectionMgr.cpp.64bit-fixes	2004-09-02 01:31:03.000000000 +0200
++++ mozilla/netwerk/protocol/http/src/nsHttpConnectionMgr.cpp	2005-09-07 16:54:44.000000000 +0200
+@@ -834,8 +834,8 @@ nsHttpConnectionMgr::OnMsgReclaimConnect
+ void
+ nsHttpConnectionMgr::OnMsgUpdateParam(nsresult status, void *param)
+ {
+-    PRUint16 name  = (PRUint32(param) & 0xFFFF0000) >> 16;
+-    PRUint16 value =  PRUint32(param) & 0x0000FFFF;
++    PRUint16 name  = (NS_PTR_TO_INT32(param) & 0xFFFF0000) >> 16;
++    PRUint16 value =  NS_PTR_TO_INT32(param) & 0x0000FFFF;
+ 
+     switch (name) {
+     case MAX_CONNECTIONS:
+--- mozilla/widget/src/gtk2/nsDragService.cpp.64bit-fixes	2003-10-30 02:48:41.000000000 +0100
++++ mozilla/widget/src/gtk2/nsDragService.cpp	2005-09-07 17:01:45.000000000 +0200
+@@ -838,7 +838,7 @@ nsDragService::GetSourceList(void)
+             (GtkTargetEntry *)g_malloc(sizeof(GtkTargetEntry));
+         listTarget->target = g_strdup(gMimeListType);
+         listTarget->flags = 0;
+-        listTarget->info = (guint)listAtom;
++        listTarget->info = (guint)(NS_PTR_TO_INT32(listAtom));
+         PR_LOG(sDragLm, PR_LOG_DEBUG,
+                ("automatically adding target %s with id %ld\n",
+                listTarget->target, listAtom));
+@@ -877,7 +877,7 @@ nsDragService::GetSourceList(void)
+                              (GtkTargetEntry *)g_malloc(sizeof(GtkTargetEntry));
+                             listTarget->target = g_strdup(gTextUriListType);
+                             listTarget->flags = 0;
+-                            listTarget->info = (guint)listAtom;
++                            listTarget->info = (guint)NS_PTR_TO_INT32(listAtom);
+                             PR_LOG(sDragLm, PR_LOG_DEBUG,
+                                    ("automatically adding target %s with \
+                                    id %ld\n", listTarget->target, listAtom));
+@@ -914,7 +914,7 @@ nsDragService::GetSourceList(void)
+                           (GtkTargetEntry *)g_malloc(sizeof(GtkTargetEntry));
+                         target->target = g_strdup(flavorStr);
+                         target->flags = 0;
+-                        target->info = (guint)atom;
++                        target->info = (guint)NS_PTR_TO_INT32(atom);
+                         PR_LOG(sDragLm, PR_LOG_DEBUG,
+                                ("adding target %s with id %ld\n",
+                                target->target, atom));
+@@ -931,7 +931,7 @@ nsDragService::GetSourceList(void)
+                              (GtkTargetEntry *)g_malloc(sizeof(GtkTargetEntry));
+                             plainTarget->target = g_strdup(kTextMime);
+                             plainTarget->flags = 0;
+-                            plainTarget->info = (guint)plainAtom;
++                            plainTarget->info = (guint)NS_PTR_TO_INT32(plainAtom);
+                             PR_LOG(sDragLm, PR_LOG_DEBUG,
+                                    ("automatically adding target %s with \
+                                    id %ld\n", plainTarget->target, plainAtom));
+@@ -948,7 +948,7 @@ nsDragService::GetSourceList(void)
+                              (GtkTargetEntry *)g_malloc(sizeof(GtkTargetEntry));
+                             urlTarget->target = g_strdup(gMozUrlType);
+                             urlTarget->flags = 0;
+-                            urlTarget->info = (guint)urlAtom;
++                            urlTarget->info = (guint)NS_PTR_TO_INT32(urlAtom);
+                             PR_LOG(sDragLm, PR_LOG_DEBUG,
+                                    ("automatically adding target %s with \
+                                    id %ld\n", urlTarget->target, urlAtom));

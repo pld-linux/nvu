@@ -1,0 +1,46 @@
+--- mozilla/security/nss/lib/ckfw/builtins/Makefile.systemnspr	2005-03-16 15:44:48.954844037 +0100
++++ mozilla/security/nss/lib/ckfw/builtins/Makefile	2005-03-16 15:40:05.693274512 +0100
+@@ -64,8 +64,8 @@
+ else
+ 
+ EXTRA_LIBS += \
+-	$(DIST)/lib/$(LIB_PREFIX)plc4.$(LIB_SUFFIX) \
+-	$(DIST)/lib/$(LIB_PREFIX)plds4.$(LIB_SUFFIX) \
++	-lplc4 \
++	-lplds4 \
+ 	$(NULL)
+ 
+ endif
+--- mozilla/security/nss/lib/fortcrypt/swfort/pkcs11/Makefile.systemnspr	2005-03-16 15:41:51.644540566 +0100
++++ mozilla/security/nss/lib/fortcrypt/swfort/pkcs11/Makefile	2005-03-16 15:42:31.814257185 +0100
+@@ -94,8 +94,8 @@
+ 	$(DIST)/lib/$(LIB_PREFIX)softokn.$(LIB_SUFFIX) \
+ 	$(CRYPTO_LIB) \
+ 	$(DIST)/lib/$(LIB_PREFIX)secutil.$(LIB_SUFFIX) \
+-	$(DIST)/lib/$(LIB_PREFIX)plc4.$(LIB_SUFFIX) \
+-	$(DIST)/lib/$(LIB_PREFIX)plds4.$(LIB_SUFFIX) \
++	-lplc4 \
++	-lplds4 \
+ 	$(NULL)
+ 
+ endif
+--- mozilla/security/coreconf/Linux.mk.systemnspr	2004-02-11 03:33:51.000000000 +0100
++++ mozilla/security/coreconf/Linux.mk	2005-03-16 14:49:35.137467570 +0100
+@@ -152,6 +152,7 @@
+ DSO_LDFLAGS		=
+ 
+ # INCLUDES += -I/usr/include -Y/usr/include/linux
++INCLUDES += `nspr-config --cflags`
+ G++INCLUDES		= -I/usr/include/g++
+ 
+ #
+--- mozilla/gfx/src/gtk/Makefile.in.systemnspr	2003-11-10 13:24:51.000000000 +0100
++++ mozilla/gfx/src/gtk/Makefile.in	2005-03-16 14:16:13.000000000 +0100
+@@ -164,6 +164,7 @@
+ 
+ ifdef MOZ_ENABLE_GTK2
+ EXTRA_DSO_LDOPTS += $(MOZ_COMPONENT_LIBS) \
++		$(LIBS_DIR) \
+ 		-lgkgfx \
+ 		-lgfxshared_s \
+ 		$(GFX_XINERAMA_LIBS) \
