@@ -1,6 +1,6 @@
 #
 # TODO:
-# - build with system nspr, jpeg, png and maybe more...
+# - %install is broken. Should be rewritten.
 #
 Summary:	Complete Web authoring system for Linux
 Summary(pl):	Kompletny system do tworzenia stron WWW dla Linuksa
@@ -14,7 +14,10 @@ Source0:	http://cvs.nvu.com/download/%{name}-%{version}-sources.tar.bz2
 Patch0:		%{name}-domainfix.patch
 Patch1:		%{name}-freetype2.patch
 Patch2:		%{name}-nsBrowserInstance.cpp-include.patch
-# Patch agains export MOZ_PHOENIX=1
+Patch3:		%{name}-systemnspr.patch
+Patch4:		%{name}-64bit-fixes.patch
+Patch5:		%{name}-browser.patch
+Patch6:		%{name}-pld.patch
 URL:		http://www.nvu.com/
 BuildRequires:	GConf2-devel
 BuildRequires:	freetype-devel >= 2.1.3
@@ -71,7 +74,11 @@ tar jxf %{SOURCE0}
 cd mozilla
 %patch0 -p0
 %patch1 -p1
-
+#patch2 -p1 #export MOZ_PHOENIX=1 broke build
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
 # let jars get compressed
 %{__perl} -pi -e 's|\-0|\-9|g' config/make-jars.pl
 
@@ -127,8 +134,13 @@ rm -f config.cache
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+%{__make} -C xpinstall/packager \
+        MOZ_PKG_APPNAME="nvu" \
+        EXCLUDE_NSPR_LIBS=1
+
+#%{__make} install \
+#	DESTDIR=$RPM_BUILD_ROOT
+#        MOZILLA_BIN="\$(DIST)/bin/firefox-bin" \
 
 %clean
 rm -rf $RPM_BUILD_ROOT
