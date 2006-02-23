@@ -1,6 +1,6 @@
 #
 # TODO:
-# - %install is broken. Should be rewritten.
+# - install is broken. Should be rewritten.
 #
 Summary:	Complete Web authoring system for Linux
 Summary(pl):	Kompletny system do tworzenia stron WWW dla Linuksa
@@ -133,14 +133,22 @@ rm -f config.cache
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d \
+        $RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}{,extensions}} \
+        $RPM_BUILD_ROOT{%{_pixmapsdir},%{_desktopdir},%{_docdir}/%{name}-%{version}} \
+        $RPM_BUILD_ROOT{%{_includedir}/%{name}/idl,%{_pkgconfigdir}}
+
+cd mozilla
+install {LEGAL,LICENSE,README.txt} $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 %{__make} -C xpinstall/packager \
         MOZ_PKG_APPNAME="nvu" \
+        MOZILLA_BIN="\$(DIST)/bin/nvu" \
         EXCLUDE_NSPR_LIBS=1
 
-#%{__make} install \
-#	DESTDIR=$RPM_BUILD_ROOT
-#        MOZILLA_BIN="\$(DIST)/bin/firefox-bin" \
+tar -xvz -C $RPM_BUILD_ROOT%{_libdir} -f dist/nvu-*linux*.tar.gz
+mv $RPM_BUILD_ROOT%{_libdir}/%{name}/nvu $RPM_BUILD_ROOT%{_bindir}/
+mv $RPM_BUILD_ROOT%{_libdir}/%{name}/nvu-config $RPM_BUILD_ROOT%{_bindir}/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -150,37 +158,37 @@ rm -rf $RPM_BUILD_ROOT
 %doc LEGAL LICENSE README.txt
 %attr(755,root,root) %{_bindir}/nvu
 %attr(755,root,root) %{_bindir}/nvu-config
-%dir %{_libdir}/nvu-1.0
-%attr(755,root,root) %{_libdir}/nvu-1.0/*.so
-%attr(755,root,root) %{_libdir}/nvu-1.0/TestGtkEmbed
-%attr(755,root,root) %{_libdir}/nvu-1.0/mozilla-xremote-client
-%attr(755,root,root) %{_libdir}/nvu-1.0/nvu-bin
-%attr(755,root,root) %{_libdir}/nvu-1.0/regchrome
-%attr(755,root,root) %{_libdir}/nvu-1.0/regxpcom
-%attr(755,root,root) %{_libdir}/nvu-1.0/run-mozilla.sh
-%attr(755,root,root) %{_libdir}/nvu-1.0/xpcshell
-%attr(755,root,root) %{_libdir}/nvu-1.0/xpicleanup
-%attr(755,root,root) %{_libdir}/nvu-1.0/xpidl
-%attr(755,root,root) %{_libdir}/nvu-1.0/xpt_dump
-%attr(755,root,root) %{_libdir}/nvu-1.0/xpt_link
-%dir %{_libdir}/nvu-1.0/plugins
-%attr(755,root,root) %{_libdir}/nvu-1.0/plugins/libnullplugin.so
-%dir %{_libdir}/nvu-1.0/components
-%attr(755,root,root) %{_libdir}/nvu-1.0/components/*.so
-%{_libdir}/nvu-1.0/components/*.js
-%{_libdir}/nvu-1.0/components/*.xpt
-%{_libdir}/nvu-1.0/components/myspell
-%{_libdir}/nvu-1.0/libsoftokn3.chk
-%{_libdir}/nvu-1.0/chrome
-%{_libdir}/nvu-1.0/defaults
-%{_libdir}/nvu-1.0/greprefs
-%{_libdir}/nvu-1.0/icons
-%{_libdir}/nvu-1.0/res
+%dir %{_libdir}/nvu
+%attr(755,root,root) %{_libdir}/nvu/*.so
+%attr(755,root,root) %{_libdir}/nvu/TestGtkEmbed
+%attr(755,root,root) %{_libdir}/nvu/mozilla-xremote-client
+%attr(755,root,root) %{_libdir}/nvu/nvu-bin
+%attr(755,root,root) %{_libdir}/nvu/regchrome
+%attr(755,root,root) %{_libdir}/nvu/regxpcom
+%attr(755,root,root) %{_libdir}/nvu/run-mozilla.sh
+%attr(755,root,root) %{_libdir}/nvu/xpcshell
+%attr(755,root,root) %{_libdir}/nvu/xpicleanup
+%attr(755,root,root) %{_libdir}/nvu/xpidl
+%attr(755,root,root) %{_libdir}/nvu/xpt_dump
+%attr(755,root,root) %{_libdir}/nvu/xpt_link
+%dir %{_libdir}/nvu/plugins
+%attr(755,root,root) %{_libdir}/nvu/plugins/libnullplugin.so
+%dir %{_libdir}/nvu/components
+%attr(755,root,root) %{_libdir}/nvu/components/*.so
+%{_libdir}/nvu/components/*.js
+%{_libdir}/nvu/components/*.xpt
+%{_libdir}/nvu/components/myspell
+%{_libdir}/nvu/libsoftokn3.chk
+%{_libdir}/nvu/chrome
+%{_libdir}/nvu/defaults
+%{_libdir}/nvu/greprefs
+%{_libdir}/nvu/icons
+%{_libdir}/nvu/res
 
 %files devel
 %defattr(644,root,root,755)
-%{_pkgconfigdir}/*.pc
-%{_aclocaldir}/*.m4
-%dir %{_datadir}/idl/nvu-1.0
-%{_datadir}/idl/nvu-1.0/*.idl
+#%{_pkgconfigdir}/*.pc
+#%{_aclocaldir}/*.m4
+#%dir %{_datadir}/idl/nvu
+#%{_datadir}/idl/nvu/*.idl
 %{_includedir}/*
