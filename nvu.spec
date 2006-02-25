@@ -1,12 +1,9 @@
 #
-# TODO:
-# - install is broken. Should be rewritten.
-#
 Summary:	Complete Web authoring system for Linux
 Summary(pl):	Kompletny system do tworzenia stron WWW dla Linuksa
 Name:		nvu
 Version:	1.0
-Release:	0.1
+Release:	1
 License:	MPL/LGPL/GPL
 Group:		Applications
 Source0:	http://cvs.nvu.com/download/%{name}-%{version}-sources.tar.bz2
@@ -32,7 +29,6 @@ BuildRequires:	perl-modules
 BuildRequires:	pkgconfig
 BuildRequires:	zip
 Requires:	freetype >= 2.1.3
-Requires:	freetype < 1:2.1.8
 Conflicts:	freetype = 2.1.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -56,17 +52,17 @@ u¿yciu, co czyni go idealnym dla nietechnicznych u¿ytkowników
 komputerów chc±cych stworzyæ atrakcyjny, profesjonalnie wygl±daj±cy
 serwis WWW bez potrzeby znajomo¶ci HTML-a czy kodowania stron.
 
-%package devel
-Summary:	Nvu development files
-Summary(pl):	Pliki programistyczne Nvu
-Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
+#%package devel
+#Summary:	Nvu development files
+#Summary(pl):	Pliki programistyczne Nvu
+#Group:		Development/Libraries
+#Requires:	%{name} = %{version}-%{release}
 
-%description devel
-Nvu development files.
+#%description devel
+#Nvu development files.
 
-%description devel -l pl
-Pliki programistyczne Nvu.
+#%description devel -l pl
+#Pliki programistyczne Nvu.
 
 %prep
 %setup -q -c -T
@@ -135,11 +131,10 @@ rm -f config.cache
 rm -rf $RPM_BUILD_ROOT
 install -d \
         $RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}{,extensions}} \
-        $RPM_BUILD_ROOT{%{_pixmapsdir},%{_desktopdir},%{_docdir}/%{name}-%{version}} \
-        $RPM_BUILD_ROOT{%{_includedir}/%{name}/idl,%{_pkgconfigdir}}
+        $RPM_BUILD_ROOT{%{_pixmapsdir},%{_desktopdir},%{_docdir}/%{name}-%{version}}
 
 cd mozilla
-install {LEGAL,LICENSE,README.txt} $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+cp {LEGAL,LICENSE,README.txt} $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 %{__make} -C xpinstall/packager \
         MOZ_PKG_APPNAME="nvu" \
@@ -147,25 +142,32 @@ install {LEGAL,LICENSE,README.txt} $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
         EXCLUDE_NSPR_LIBS=1
 
 tar -xvz -C $RPM_BUILD_ROOT%{_libdir} -f dist/nvu-*linux*.tar.gz
-mv $RPM_BUILD_ROOT%{_libdir}/%{name}/nvu $RPM_BUILD_ROOT%{_bindir}/
-mv $RPM_BUILD_ROOT%{_libdir}/%{name}/nvu-config $RPM_BUILD_ROOT%{_bindir}/
+
+ln -s %{_libdir}/%{name}/nvu $RPM_BUILD_ROOT%{_bindir}/
+ln -s %{_libdir}/%{name}/nvu-config $RPM_BUILD_ROOT%{_bindir}/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc LEGAL LICENSE README.txt
+%{_docdir}/*
 %attr(755,root,root) %{_bindir}/nvu
 %attr(755,root,root) %{_bindir}/nvu-config
 %dir %{_libdir}/nvu
+%attr(755,root,root) %{_libdir}/nvu/nvu
+%attr(755,root,root) %{_libdir}/nvu/nvu-config
 %attr(755,root,root) %{_libdir}/nvu/*.so
 %attr(755,root,root) %{_libdir}/nvu/TestGtkEmbed
+%attr(755,root,root) %{_libdir}/nvu/bloaturls.txt
+%attr(755,root,root) %{_libdir}/nvu/elf-dynstr-gc
+%attr(755,root,root) %{_libdir}/nvu/mangle
 %attr(755,root,root) %{_libdir}/nvu/mozilla-xremote-client
 %attr(755,root,root) %{_libdir}/nvu/nvu-bin
 %attr(755,root,root) %{_libdir}/nvu/regchrome
 %attr(755,root,root) %{_libdir}/nvu/regxpcom
 %attr(755,root,root) %{_libdir}/nvu/run-mozilla.sh
+%attr(755,root,root) %{_libdir}/nvu/shlibsign
 %attr(755,root,root) %{_libdir}/nvu/xpcshell
 %attr(755,root,root) %{_libdir}/nvu/xpicleanup
 %attr(755,root,root) %{_libdir}/nvu/xpidl
@@ -185,10 +187,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/nvu/icons
 %{_libdir}/nvu/res
 
-%files devel
-%defattr(644,root,root,755)
-#%{_pkgconfigdir}/*.pc
-#%{_aclocaldir}/*.m4
-#%dir %{_datadir}/idl/nvu
-#%{_datadir}/idl/nvu/*.idl
-%{_includedir}/*
+#%files devel
+#%defattr(644,root,root,755)
+#%{_includedir}/*
