@@ -18,7 +18,7 @@ Patch6:		%{name}-pld.patch
 URL:		http://www.nvu.com/
 BuildRequires:	GConf2-devel
 BuildRequires:	freetype-devel >= 2.1.3
-BuildConflicts:	freetype-devel = 2.1.8
+BuildConflicts:	freetype-devel = 1:2.1.8
 BuildRequires:	gnome-vfs2-devel
 BuildRequires:	gtk+2-devel >= 1:2.2.0
 BuildRequires:	libgnome-devel
@@ -29,7 +29,7 @@ BuildRequires:	perl-modules
 BuildRequires:	pkgconfig
 BuildRequires:	zip
 Requires:	freetype >= 2.1.3
-Conflicts:	freetype = 2.1.8
+Conflicts:	freetype = 1:2.1.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # doesn't provide system mozilla libs
