@@ -160,7 +160,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/nvu/*.so
 %attr(755,root,root) %{_libdir}/nvu/TestGtkEmbed
 %attr(755,root,root) %{_libdir}/nvu/bloaturls.txt
-%attr(755,root,root) %{_libdir}/nvu/elf-dynstr-gc
 %attr(755,root,root) %{_libdir}/nvu/mangle
 %attr(755,root,root) %{_libdir}/nvu/mozilla-xremote-client
 %attr(755,root,root) %{_libdir}/nvu/nvu-bin
