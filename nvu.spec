@@ -1,6 +1,6 @@
 #
 Summary:	Complete Web authoring system for Linux
-Summary(pl):	Kompletny system do tworzenia stron WWW dla Linuksa
+Summary(pl.UTF-8):   Kompletny system do tworzenia stron WWW dla Linuksa
 Name:		nvu
 Version:	1.0
 Release:	1
@@ -44,13 +44,13 @@ extremely easy to use, making it ideal for non-technical computer
 users who want to create an attractive, professional-looking web site
 without needing to know HTML or web coding.
 
-%description -l pl
+%description -l pl.UTF-8
 Nvu (N-view, od "new view) to kompletny system do tworzenia stron WWW
-³±cz±ce zarz±dzanie plikami na WWW i ³atwe w u¿yciu modyfikowanie
-stron w stylu WYSIWYG. Nvu jest zaprojektowany aby byæ bardzo ³atwym w
-u¿yciu, co czyni go idealnym dla nietechnicznych u¿ytkowników
-komputerów chc±cych stworzyæ atrakcyjny, profesjonalnie wygl±daj±cy
-serwis WWW bez potrzeby znajomo¶ci HTML-a czy kodowania stron.
+Å‚Ä…czÄ…ce zarzÄ…dzanie plikami na WWW i Å‚atwe w uÅ¼yciu modyfikowanie
+stron w stylu WYSIWYG. Nvu jest zaprojektowany aby byÄ‡ bardzo Å‚atwym w
+uÅ¼yciu, co czyni go idealnym dla nietechnicznych uÅ¼ytkownikÃ³w
+komputerÃ³w chcÄ…cych stworzyÄ‡ atrakcyjny, profesjonalnie wyglÄ…dajÄ…cy
+serwis WWW bez potrzeby znajomoÅ›ci HTML-a czy kodowania stron.
 
 #%package devel
 #Summary:	Nvu development files
