@@ -1,6 +1,6 @@
 #
 Summary:	Complete Web authoring system for Linux
-Summary(pl.UTF-8):   Kompletny system do tworzenia stron WWW dla Linuksa
+Summary(pl.UTF-8):	Kompletny system do tworzenia stron WWW dla Linuksa
 Name:		nvu
 Version:	1.0
 Release:	1
