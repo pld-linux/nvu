@@ -68,13 +68,13 @@ serwis WWW bez potrzeby znajomości HTML-a czy kodowania stron.
 %setup -q -c -T
 tar jxf %{SOURCE0}
 cd mozilla
-%patch0 -p0
-%patch1 -p1
+%patch -P0 -p0
+%patch -P1 -p1
 #patch2 -p1 #export MOZ_PHOENIX=1 broke build
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
+%patch -P3 -p1
+%patch -P4 -p1
+%patch -P5 -p1
+%patch -P6 -p1
 # let jars get compressed
 %{__perl} -pi -e 's|\-0|\-9|g' config/make-jars.pl
 
